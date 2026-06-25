@@ -1,0 +1,102 @@
+:root {
+  --bg: #050b16;
+  --bg-2: #081427;
+  --surface: #0e1e35;
+  --card: #16233c;
+  --border: #243349;
+  --border-2: #2c3d58;
+
+  --mint: #07e696;
+  --mint-2: #1ce8a5;
+  --mint-dark: #06c281;
+  --cyan: #07b4ff;
+  --blue: #0d67f7;
+  --amber: #ffc53d;
+  --pink: #fa27d1;
+
+  --text-hi: #eaf1fb;
+  --text-mid: #8fa0b8;
+  --text-lo: #5a6a84;
+
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 22px;
+
+  --font: Pretendard, 'Apple SD Gothic Neo', -apple-system, BlinkMacSystemFont,
+    system-ui, sans-serif;
+
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text-hi);
+  font-family: var(--font);
+  overflow: hidden;
+  /* iOS 노치 대응 */
+  overscroll-behavior: none;
+  touch-action: none;
+}
+
+#root {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+  color: inherit;
+}
+
+@keyframes mcFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-7px);
+  }
+}
+
+@keyframes mcPulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(7, 230, 150, 0.45), 0 16px 40px rgba(7, 230, 150, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 0 12px rgba(7, 230, 150, 0), 0 16px 44px rgba(7, 230, 150, 0.5);
+  }
+}
+
+@keyframes mcFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+  }
+}

@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<template id="__bundler_thumbnail"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" fill="#081427"/><rect x="30" y="46" width="40" height="22" rx="3" fill="#1ce8a5"/><rect x="30" y="36" width="40" height="12" rx="3" fill="#07e696"/><rect x="44" y="30" width="12" height="9" rx="2" fill="#fa27d1"/><rect x="66" y="50" width="8" height="6" rx="1" fill="#ffc53d"/></svg></template>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.min.css">
+<style>
+@keyframes mcFloat { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-7px)} }
+@keyframes mcPulse { 0%,100%{box-shadow:0 0 0 0 rgba(7,230,150,.45),0 16px 40px rgba(7,230,150,.30)} 50%{box-shadow:0 0 0 12px rgba(7,230,150,0),0 16px 44px rgba(7,230,150,.5)} }
+@keyframes mcSpin { to{transform:rotate(360deg)} }
+body{margin:0;background:#070d18;font-family:Pretendard,"Apple SD Gothic Neo",-apple-system,sans-serif;}
+</style>
+</helmet>
+
+<div style="position:absolute;left:64px;top:44px;width:600px;">
+  <div style="display:inline-flex;align-items:center;gap:8px;color:#07e696;font-weight:700;font-size:12px;letter-spacing:.16em;text-transform:uppercase;border:1px solid rgba(7,230,150,.3);background:rgba(7,230,150,.06);padding:6px 12px;border-radius:999px;">● Game UI Kit · 9:16</div>
+  <div style="color:#eaf1fb;font-weight:800;font-size:42px;letter-spacing:-.02em;margin-top:14px;line-height:1.05;">Mint Crossing</div>
+  <div style="color:#8fa0b8;font-size:16px;line-height:1.55;margin-top:10px;max-width:560px;">로우폴리 아이소메트릭 길건너기 캐주얼 게임. 다크 네이비 + 민트, 플랫 셰이딩, 큰 터치 타깃.</div>
+</div>
+
+<!-- ── 컬러 팔레트 ── -->
+<div style="position:absolute;left:64px;top:188px;width:600px;">
+  <div data-drags-parent="1" style="color:#5a6a84;font-weight:700;font-size:12px;letter-spacing:.12em;text-transform:uppercase;margin-bottom:12px;">01 · Color Palette</div>
+  <div style="background:linear-gradient(180deg,#16233c,#0e1e35);border:1px solid #243349;border-radius:14px;padding:22px;">
+    <div style="color:#8fa0b8;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px;">Surfaces</div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;">{{ swSurface }}</div>
+    <div style="color:#8fa0b8;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin:18px 0 10px;">Mint / Accent</div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;">{{ swAccent }}</div>
+    <div style="color:#8fa0b8;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin:18px 0 10px;">Scene Materials</div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;">{{ swScene }}</div>
+  </div>
+</div>
+
+<!-- ── 무드보드 ── -->
+<div style="position:absolute;left:64px;top:560px;width:600px;">
+  <div data-drags-parent="1" style="color:#5a6a84;font-weight:700;font-size:12px;letter-spacing:.12em;text-transform:uppercase;margin-bottom:12px;">02 · Flat-Shading Moodboard</div>
+  <div style="background:linear-gradient(180deg,#16233c,#0e1e35);border:1px solid #243349;border-radius:14px;padding:24px;display:flex;gap:22px;align-items:center;">
+    <div style="flex:0 0 200px;height:200px;position:relative;background:radial-gradient(120px 90px at 60% 30%,rgba(7,230,150,.14),transparent 70%);border-radius:12px;overflow:hidden;">{{ moodScene }}</div>
+    <div style="flex:1;min-width:0;">
+      <div style="color:#eaf1fb;font-weight:800;font-size:20px;letter-spacing:-.01em;">Low-poly · 3-tone faces</div>
+      <div style="color:#8fa0b8;font-size:14px;line-height:1.55;margin-top:8px;">각 큐브는 한 방향 광원의 플랫 셰이딩 — 윗면 100%, 측면 84%, 정면 66%. 부드러운 라운드(8~14px)와 은은한 민트 글로우.</div>
+      <div style="display:flex;gap:10px;margin-top:16px;flex-wrap:wrap;">
+        <div style="display:inline-flex;align-items:center;gap:8px;padding:7px 12px;border:1px solid #2c3d58;border-radius:999px;color:#8fa0b8;font-size:12px;font-weight:600;">radius 8 / 14 / 22</div>
+        <div style="display:inline-flex;align-items:center;gap:8px;padding:7px 12px;border:1px solid rgba(7,230,150,.3);background:rgba(7,230,150,.06);border-radius:999px;color:#07e696;font-size:12px;font-weight:700;">glow rgba(7,230,150,.4)</div>
+      </div>
+      <div style="margin-top:18px;border-top:1px solid #243349;padding-top:14px;">
+        <span style="color:#eaf1fb;font-weight:800;font-size:30px;letter-spacing:-.02em;">Aa</span>
+        <span style="color:#8fa0b8;font-size:13px;margin-left:10px;">Pretendard · 800 Display / 400 Body</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ 시작 화면 ══════════ -->
+<div style="position:absolute;left:720px;top:188px;width:380px;">
+  <div data-drags-parent="1" style="color:#5a6a84;font-weight:700;font-size:12px;letter-spacing:.12em;text-transform:uppercase;margin-bottom:12px;">03 · Start</div>
+  <div style="width:380px;padding:11px;background:linear-gradient(160deg,#1b2a43,#0a1120);border:1px solid #2c3d58;border-radius:46px;box-shadow:0 30px 70px rgba(0,0,0,.5);">
+    <div data-screen-label="Start" style="position:relative;width:358px;height:636px;border-radius:36px;overflow:hidden;background:radial-gradient(560px 360px at 80% -8%,rgba(7,230,150,.16),transparent 60%),radial-gradient(460px 320px at 0% 110%,rgba(13,103,247,.16),transparent 55%),linear-gradient(180deg,#081427,#050b16);">
+      <div style="position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);background-size:34px 34px;-webkit-mask-image:radial-gradient(circle at 50% 38%,#000 35%,transparent 82%);mask-image:radial-gradient(circle at 50% 38%,#000 35%,transparent 82%);"></div>
+
+      <!-- top bar -->
+      <div style="position:absolute;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:16px 18px;color:#eaf1fb;font-size:12px;font-weight:700;">
+        <span style="color:#8fa0b8;">9:41</span>
+        <div style="display:flex;gap:8px;">
+          <div style="width:34px;height:34px;border-radius:10px;border:1px solid #2c3d58;background:rgba(22,35,60,.6);display:flex;align-items:center;justify-content:center;color:#8fa0b8;font-size:15px;">♪</div>
+          <div style="width:34px;height:34px;border-radius:10px;border:1px solid #2c3d58;background:rgba(22,35,60,.6);display:flex;align-items:center;justify-content:center;color:#8fa0b8;font-size:15px;">⚙</div>
+        </div>
+      </div>
+
+      <!-- best score -->
+      <div style="position:absolute;top:66px;left:0;right:0;display:flex;justify-content:center;">
+        <div style="display:inline-flex;align-items:center;gap:10px;padding:9px 16px;border:1px solid #243349;background:rgba(14,30,53,.7);border-radius:999px;">
+          <span style="color:#ffc53d;font-size:15px;">◆</span>
+          <span style="color:#8fa0b8;font-size:11px;font-weight:700;letter-spacing:.14em;">BEST</span>
+          <span style="color:#eaf1fb;font-size:17px;font-weight:800;font-variant-numeric:tabular-nums;">248</span>
+        </div>
+      </div>
+
+      <!-- title logo -->
+      <div style="position:absolute;top:118px;left:0;right:0;text-align:center;animation:mcFloat 4s ease-in-out infinite;">
+        <div style="color:#eaf1fb;font-weight:800;font-size:46px;line-height:.92;letter-spacing:-.02em;text-shadow:0 0 32px rgba(7,230,150,.35);">MINT</div>
+        <div style="font-weight:800;font-size:46px;line-height:.92;letter-spacing:-.02em;background:linear-gradient(100deg,#1ce8a5,#07b4ff);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 0 24px rgba(7,230,150,.45));">CROSSING</div>
+        <div style="margin-top:12px;color:#8fa0b8;font-size:13px;font-weight:600;letter-spacing:.22em;">HOP · DODGE · SURVIVE</div>
+      </div>
+
+      <!-- iso vignette -->
+      <div style="position:absolute;top:262px;bottom:150px;left:0;right:0;">{{ startScene }}</div>
+
+      <!-- PLAY -->
+      <div style="position:absolute;bottom:42px;left:24px;right:24px;">
+        <div style="height:74px;border-radius:18px;background:linear-gradient(180deg,#1ce8a5,#06c281);display:flex;align-items:center;justify-content:center;gap:12px;color:#04130c;font-weight:800;font-size:26px;letter-spacing:.04em;animation:mcPulse 2.4s ease-in-out infinite;">
+          <span style="font-size:20px;">▶</span> PLAY
+        </div>
+        <div style="display:flex;gap:12px;margin-top:12px;">
+          <div style="flex:1;height:50px;border-radius:14px;border:1px solid #2c3d58;background:rgba(22,35,60,.6);display:flex;align-items:center;justify-content:center;gap:8px;color:#eaf1fb;font-weight:700;font-size:14px;">🏆 랭킹</div>
+          <div style="flex:1;height:50px;border-radius:14px;border:1px solid #2c3d58;background:rgba(22,35,60,.6);display:flex;align-items:center;justify-content:center;gap:8px;color:#eaf1fb;font-weight:700;font-size:14px;">🐤 캐릭터</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ 인게임 화면 ══════════ -->
+<div style="position:absolute;left:1160px;top:188px;width:380px;">
+  <div data-drags-parent="1" style="color:#5a6a84;font-weight:700;font-size:12px;letter-spacing:.12em;text-transform:uppercase;margin-bottom:12px;">04 · In-Game</div>
+  <div style="width:380px;padding:11px;background:linear-gradient(160deg,#1b2a43,#0a1120);border:1px solid #2c3d58;border-radius:46px;box-shadow:0 30px 70px rgba(0,0,0,.5);">
+    <div data-screen-label="In-Game" style="position:relative;width:358px;height:636px;border-radius:36px;overflow:hidden;background:radial-gradient(560px 360px at 80% -8%,rgba(7,230,150,.10),transparent 60%),linear-gradient(180deg,#0a1730,#050b16);">
+
+      <!-- iso scene -->
+      <div style="position:absolute;inset:0;">{{ gameScene }}</div>
+
+      <!-- score HUD -->
+      <div style="position:absolute;top:54px;left:0;right:0;text-align:center;pointer-events:none;">
+        <div style="color:#eaf1fb;font-weight:800;font-size:64px;line-height:1;letter-spacing:-.02em;text-shadow:0 4px 24px rgba(0,0,0,.6);font-variant-numeric:tabular-nums;">37</div>
+        <div style="color:#8fa0b8;font-size:11px;font-weight:700;letter-spacing:.2em;margin-top:2px;">SCORE</div>
+      </div>
+
+      <!-- top status -->
+      <div style="position:absolute;top:16px;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:0 18px;">
+        <span style="color:#8fa0b8;font-size:12px;font-weight:700;">9:41</span>
+        <div style="display:inline-flex;align-items:center;gap:7px;padding:7px 13px;border:1px solid rgba(255,197,61,.3);background:rgba(255,197,61,.08);border-radius:999px;">
+          <span style="color:#ffc53d;font-size:13px;">◆</span>
+          <span style="color:#ffc53d;font-size:14px;font-weight:800;font-variant-numeric:tabular-nums;">12</span>
+        </div>
+        <div style="width:34px;height:34px;border-radius:10px;border:1px solid #2c3d58;background:rgba(22,35,60,.6);display:flex;align-items:center;justify-content:center;color:#8fa0b8;font-size:14px;">❚❚</div>
+      </div>
+
+      <!-- control hint bottom-left -->
+      <div style="position:absolute;bottom:22px;left:20px;">
+        <div style="display:grid;grid-template-columns:repeat(3,40px);grid-template-rows:repeat(2,40px);gap:6px;">
+          <div></div>
+          <div style="border-radius:12px;border:1px solid #2c3d58;background:rgba(14,30,53,.75);display:flex;align-items:center;justify-content:center;color:#1ce8a5;font-size:18px;">▲</div>
+          <div></div>
+          <div style="border-radius:12px;border:1px solid #2c3d58;background:rgba(14,30,53,.55);display:flex;align-items:center;justify-content:center;color:#8fa0b8;font-size:18px;">◀</div>
+          <div style="border-radius:12px;border:1px solid #2c3d58;background:rgba(14,30,53,.55);display:flex;align-items:center;justify-content:center;color:#8fa0b8;font-size:18px;">▼</div>
+          <div style="border-radius:12px;border:1px solid #2c3d58;background:rgba(14,30,53,.55);display:flex;align-items:center;justify-content:center;color:#8fa0b8;font-size:18px;">▶</div>
+        </div>
+        <div style="color:#5a6a84;font-size:11px;font-weight:600;margin-top:8px;letter-spacing:.04em;">스와이프 또는 탭으로 점프</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ 게임오버 화면 ══════════ -->
+<div style="position:absolute;left:1600px;top:188px;width:380px;">
+  <div data-drags-parent="1" style="color:#5a6a84;font-weight:700;font-size:12px;letter-spacing:.12em;text-transform:uppercase;margin-bottom:12px;">05 · Game Over</div>
+  <div style="width:380px;padding:11px;background:linear-gradient(160deg,#1b2a43,#0a1120);border:1px solid #2c3d58;border-radius:46px;box-shadow:0 30px 70px rgba(0,0,0,.5);">
+    <div data-screen-label="Game Over" style="position:relative;width:358px;height:636px;border-radius:36px;overflow:hidden;background:radial-gradient(560px 360px at 50% 0%,rgba(13,103,247,.16),transparent 60%),linear-gradient(180deg,#081427,#050b16);">
+      <div style="position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);background-size:34px 34px;-webkit-mask-image:radial-gradient(circle at 50% 30%,#000 30%,transparent 78%);mask-image:radial-gradient(circle at 50% 30%,#000 30%,transparent 78%);"></div>
+
+      <!-- character -->
+      <div style="position:absolute;top:96px;left:0;right:0;height:130px;">{{ overScene }}</div>
+
+      <div style="position:absolute;top:36px;left:0;right:0;text-align:center;">
+        <div style="color:#fa27d1;font-weight:800;font-size:13px;letter-spacing:.24em;">GAME OVER</div>
+      </div>
+
+      <!-- score card -->
+      <div style="position:absolute;top:226px;left:24px;right:24px;background:linear-gradient(180deg,#16233c,#0e1e35);border:1px solid #243349;border-radius:20px;padding:20px;text-align:center;">
+        <div style="color:#8fa0b8;font-size:11px;font-weight:700;letter-spacing:.2em;">SCORE</div>
+        <div style="font-weight:800;font-size:54px;line-height:1.05;letter-spacing:-.02em;background:linear-gradient(100deg,#1ce8a5,#07b4ff);-webkit-background-clip:text;background-clip:text;color:transparent;font-variant-numeric:tabular-nums;">214</div>
+        <div style="display:flex;gap:12px;margin-top:14px;">
+          <div style="flex:1;border:1px solid #243349;border-radius:14px;padding:12px;">
+            <div style="color:#5a6a84;font-size:10px;font-weight:700;letter-spacing:.14em;">BEST</div>
+            <div style="color:#eaf1fb;font-size:22px;font-weight:800;font-variant-numeric:tabular-nums;margin-top:3px;">248</div>
+          </div>
+          <div style="flex:1;border:1px solid #243349;border-radius:14px;padding:12px;">
+            <div style="color:#5a6a84;font-size:10px;font-weight:700;letter-spacing:.14em;">COINS</div>
+            <div style="color:#ffc53d;font-size:22px;font-weight:800;font-variant-numeric:tabular-nums;margin-top:3px;">+12</div>
+          </div>
+        </div>
+        <div style="margin-top:12px;display:inline-flex;align-items:center;gap:7px;padding:6px 12px;border:1px solid rgba(7,230,150,.3);background:rgba(7,230,150,.06);border-radius:999px;color:#07e696;font-size:12px;font-weight:700;">▲ 신기록까지 34</div>
+      </div>
+
+      <!-- buttons -->
+      <div style="position:absolute;bottom:42px;left:24px;right:24px;">
+        <div style="height:70px;border-radius:18px;background:linear-gradient(180deg,#1ce8a5,#06c281);display:flex;align-items:center;justify-content:center;gap:10px;color:#04130c;font-weight:800;font-size:22px;box-shadow:0 14px 36px rgba(7,230,150,.34);">
+          <span style="font-size:18px;">↻</span> 다시하기
+        </div>
+        <div style="display:flex;gap:12px;margin-top:12px;">
+          <div style="flex:1;height:54px;border-radius:14px;border:1px solid #2c3d58;background:rgba(22,35,60,.6);display:flex;align-items:center;justify-content:center;gap:8px;color:#07b4ff;font-weight:700;font-size:15px;">↗ 공유</div>
+          <div style="flex:1;height:54px;border-radius:14px;border:1px solid #2c3d58;background:rgba(22,35,60,.6);display:flex;align-items:center;justify-content:center;gap:8px;color:#eaf1fb;font-weight:700;font-size:15px;">⌂ 홈</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  shade(hex, p) {
+    const n = parseInt(hex.slice(1), 16);
+    let r = (n >> 16) & 255, g = (n >> 8) & 255, b = n & 255;
+    const c = v => Math.max(0, Math.min(255, Math.round(v)));
+    r = c(r * (1 + p)); g = c(g * (1 + p)); b = c(b * (1 + p));
+    return '#' + [r, g, b].map(v => v.toString(16).padStart(2, '0')).join('');
+  }
+
+  // axis-aligned box in grid space (x,y footprint; z up; h height)
+  box(o) {
+    const R = React.createElement;
+    const { x = 0, y = 0, z = 0, w, d, h, color, round = 0, key } = o;
+    const top = color, sx = this.shade(color, -0.16), sy = this.shade(color, -0.36);
+    const base = { position: 'absolute', transformOrigin: '0 0', backfaceVisibility: 'hidden', borderRadius: round };
+    const faces = [
+      R('div', { key: 't', style: { ...base, width: w, height: d, background: top, transform: `translate3d(${x}px,${y}px,${z + h}px)` } }),
+      R('div', { key: 'n', style: { ...base, width: w, height: h, background: sy, transform: `translate3d(${x}px,${y}px,${z}px) rotateX(-90deg)` } }),
+      R('div', { key: 's', style: { ...base, width: w, height: h, background: sy, transform: `translate3d(${x}px,${y + d}px,${z}px) rotateX(-90deg)` } }),
+      R('div', { key: 'wf', style: { ...base, width: h, height: d, background: sx, transform: `translate3d(${x}px,${y}px,${z}px) rotateY(90deg)` } }),
+      R('div', { key: 'ef', style: { ...base, width: h, height: d, background: sx, transform: `translate3d(${x + w}px,${y}px,${z}px) rotateY(90deg)` } }),
+    ];
+    return R('div', { key, style: { position: 'absolute', transformStyle: 'preserve-3d' } }, faces);
+  }
+
+  // mint cube character (body + beak + comb)
+  chick(x, y, z, key) {
+    return [
+      this.box({ key: key + 'b', x, y, z, w: 28, d: 28, h: 30, color: '#1ce8a5', round: 4 }),
+      this.box({ key: key + 'k', x: x + 24, y: y + 9, z: z + 12, w: 10, d: 10, h: 8, color: '#ffc53d', round: 2 }),
+      this.box({ key: key + 'c', x: x + 8, y: y + 8, z: z + 30, w: 12, d: 12, h: 7, color: '#fa27d1', round: 2 }),
+    ];
+  }
+
+  tree(x, y, z, key) {
+    return [
+      this.box({ key: key + 't', x: x + 9, y: y + 9, z, w: 10, d: 10, h: 14, color: '#6b4326', round: 2 }),
+      this.box({ key: key + 'f', x, y, z: z + 14, w: 28, d: 28, h: 30, color: '#0e7a4e', round: 5 }),
+    ];
+  }
+
+  world(children, opts) {
+    const R = React.createElement;
+    const { gw, gd, cy, scale, rotX = -56, rotZ = 45 } = opts;
+    return R('div', { style: { position: 'absolute', left: '50%', top: cy, transform: `translate(-50%,-50%) scale(${scale})`, transformStyle: 'preserve-3d' } },
+      R('div', { style: { position: 'absolute', transformStyle: 'preserve-3d', transform: `rotateX(${rotX}deg) rotateZ(${rotZ}deg)` } },
+        R('div', { style: { position: 'absolute', transformStyle: 'preserve-3d', transform: `translate3d(${-gw / 2}px,${-gd / 2}px,0)` } }, children)
+      )
+    );
+  }
+
+  buildGame() {
+    const t = 46, cols = 7, gw = cols * t;
+    const rows = ['grass', 'road', 'road', 'grass', 'water', 'water', 'grass', 'road', 'grass'];
+    const topC = { grass: '#17a363', road: '#222f47', water: '#0f5ef0' };
+    const gd = rows.length * t;
+    const C = [];
+    rows.forEach((type, i) => {
+      C.push(this.box({ key: 'row' + i, x: 0, y: i * t, z: 0, w: gw, d: t, h: 11, color: topC[type] }));
+      if (type === 'road') {
+        for (let k = 0; k < 4; k++) C.push(this.box({ key: `d${i}_${k}`, x: 14 + k * 84, y: i * t + t / 2 - 2.5, z: 11, w: 30, d: 5, h: 1.5, color: '#5a6a84', round: 1 }));
+      }
+      if (type === 'water') {
+        for (let k = 0; k < cols; k++) C.push(this.box({ key: `w${i}_${k}`, x: k * t + 6, y: i * t + 8, z: 8, w: t - 12, d: t - 16, h: 1, color: '#1f7bff', round: 6 }));
+      }
+    });
+    // logs on water
+    C.push(...[].concat(this.box({ key: 'log4', x: t * 0.4, y: 4 * t + 9, z: 11, w: 96, d: 28, h: 15, color: '#7a4a24', round: 5 })));
+    C.push(this.box({ key: 'log5', x: t * 3.2, y: 5 * t + 9, z: 11, w: 96, d: 28, h: 15, color: '#7a4a24', round: 5 }));
+    // cars on roads
+    C.push(this.box({ key: 'car1', x: t * 1.1, y: 1 * t + 9, z: 11, w: 58, d: 28, h: 22, color: '#07b4ff', round: 5 }));
+    C.push(this.box({ key: 'car2', x: t * 3.9, y: 2 * t + 9, z: 11, w: 58, d: 28, h: 22, color: '#ffc53d', round: 5 }));
+    C.push(this.box({ key: 'car7', x: t * 2.3, y: 7 * t + 9, z: 11, w: 58, d: 28, h: 22, color: '#0d67f7', round: 5 }));
+    // trees + rock on grass
+    C.push(...this.tree(t * 5.1, 0 * t + 8, 11, 'tA'));
+    C.push(...this.tree(t * 0.6, 6 * t + 8, 11, 'tB'));
+    C.push(this.box({ key: 'rock', x: t * 4.4, y: 6 * t + 12, z: 11, w: 24, d: 22, h: 18, color: '#3a4a63', round: 6 }));
+    C.push(...this.tree(t * 6.0, 8 * t + 8, 11, 'tC'));
+    // character on grass row 3
+    C.push(...this.chick(t * 3 + 9, 3 * t + 9, 11, 'me'));
+    return this.world(C, { gw, gd, cy: '52%', scale: 0.92 });
+  }
+
+  buildStart() {
+    const t = 46, cols = 5, gw = cols * t;
+    const rows = ['grass', 'road', 'grass'];
+    const topC = { grass: '#17a363', road: '#222f47' };
+    const gd = rows.length * t;
+    const C = [];
+    rows.forEach((type, i) => {
+      C.push(this.box({ key: 'sr' + i, x: 0, y: i * t, z: 0, w: gw, d: t, h: 11, color: topC[type] }));
+      if (type === 'road') for (let k = 0; k < 3; k++) C.push(this.box({ key: `sd${k}`, x: 14 + k * 84, y: i * t + t / 2 - 2.5, z: 11, w: 30, d: 5, h: 1.5, color: '#5a6a84', round: 1 }));
+    });
+    C.push(this.box({ key: 'scar', x: t * 0.6, y: 1 * t + 9, z: 11, w: 58, d: 28, h: 22, color: '#07b4ff', round: 5 }));
+    C.push(...this.tree(t * 3.6, 0 * t + 8, 11, 'st'));
+    C.push(...this.chick(t * 2 + 9, 2 * t + 9, 11, 'sme'));
+    return this.world(C, { gw, gd, cy: '54%', scale: 0.82 });
+  }
+
+  buildOver() {
+    const t = 46;
+    const C = [];
+    C.push(this.box({ key: 'ot', x: 0, y: 0, z: 0, w: t * 3, d: t, h: 11, color: '#17a363' }));
+    // tumbled character (flat-ish)
+    C.push(...this.chick(t * 1.5 - 14, t / 2 - 14, 11, 'ome'));
+    C.push(this.box({ key: 'star', x: t * 2.2, y: 6, z: 30, w: 14, d: 14, h: 8, color: '#ffc53d', round: 3 }));
+    return this.world(C, { gw: t * 3, gd: t, cy: '50%', scale: 0.92 });
+  }
+
+  buildMood() {
+    const C = [];
+    C.push(this.box({ key: 'm1', x: 0, y: 0, z: 0, w: 50, d: 50, h: 50, color: '#1ce8a5', round: 6 }));
+    C.push(this.box({ key: 'm2', x: 64, y: 18, z: 0, w: 38, d: 38, h: 30, color: '#07b4ff', round: 6 }));
+    C.push(this.box({ key: 'm3', x: 10, y: 70, z: 0, w: 38, d: 38, h: 20, color: '#ffc53d', round: 6 }));
+    return this.world(C, { gw: 100, gd: 100, cy: '50%', scale: 1.0 });
+  }
+
+  swatch(name, hex, dark) {
+    const R = React.createElement;
+    return R('div', { key: hex + name, style: { width: 80 } },
+      R('div', { style: { height: 46, borderRadius: 10, background: hex, border: '1px solid rgba(255,255,255,.08)' } }),
+      R('div', { style: { color: dark ? '#5a6a84' : '#eaf1fb', fontSize: 11, fontWeight: 700, marginTop: 6 } }, name),
+      R('div', { style: { color: '#5a6a84', fontSize: 10, fontFamily: 'monospace', marginTop: 1 } }, hex)
+    );
+  }
+
+  renderVals() {
+    const sw = (arr) => arr.map(a => this.swatch(a[0], a[1]));
+    return {
+      gameScene: this.buildGame(),
+      startScene: this.buildStart(),
+      overScene: this.buildOver(),
+      moodScene: this.buildMood(),
+      swSurface: sw([['BG', '#050b16'], ['BG-2', '#081427'], ['Surface', '#0e1e35'], ['Card', '#16233c'], ['Border', '#243349']]),
+      swAccent: sw([['Mint', '#07e696'], ['Mint-2', '#1ce8a5'], ['Cyan', '#07b4ff'], ['Blue', '#0d67f7'], ['Amber', '#ffc53d']]),
+      swScene: sw([['Grass', '#17a363'], ['Road', '#222f47'], ['Water', '#0f5ef0'], ['Log', '#7a4a24'], ['Foliage', '#0e7a4e']]),
+    };
+  }
+}
+</script>
+</body>
+</html>

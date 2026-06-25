@@ -1,0 +1,409 @@
+/* ──────────────────────────────────────────────
+   Mint Crossing — UI 오버레이 스타일
+   디자인 레퍼런스(design-reference/Mint Crossing.dc.html)의
+   레이아웃·색·라운드를 그대로 옮겼다. 색은 styles.css 의 CSS 변수 사용.
+   ────────────────────────────────────────────── */
+
+.app-frame {
+  position: relative;
+  width: min(100vw, 440px);
+  height: 100dvh;
+  max-height: 1000px;
+  overflow: hidden;
+  background: var(--bg);
+  user-select: none;
+}
+
+@media (min-width: 480px) {
+  .app-frame {
+    height: min(100dvh, 920px);
+    border-radius: 34px;
+    border: 1px solid var(--border-2);
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
+  }
+}
+
+.game-layer {
+  position: absolute;
+  inset: 0;
+  touch-action: none;
+}
+.game-layer canvas {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* 공통 오버레이 */
+.screen {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  animation: mcFadeUp 0.35s ease both;
+}
+
+.grid-vignette {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 34px 34px;
+  -webkit-mask-image: radial-gradient(circle at 50% 38%, #000 35%, transparent 82%);
+  mask-image: radial-gradient(circle at 50% 38%, #000 35%, transparent 82%);
+}
+
+/* ── 시작 화면 ── */
+.start-screen {
+  background: radial-gradient(600px 380px at 80% -10%, rgba(7, 230, 150, 0.18), transparent 60%),
+    linear-gradient(
+      180deg,
+      rgba(8, 20, 39, 0.88) 0%,
+      rgba(5, 11, 22, 0.28) 40%,
+      rgba(5, 11, 22, 0.5) 68%,
+      rgba(5, 11, 22, 0.94) 100%
+    );
+}
+
+.best-pill {
+  position: absolute;
+  top: 7%;
+  left: 50%;
+  transform: translateX(-50%);
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 16px;
+  border: 1px solid var(--border);
+  background: rgba(14, 30, 53, 0.7);
+  border-radius: 999px;
+  backdrop-filter: blur(4px);
+}
+.best-ico {
+  color: var(--amber);
+  font-size: 15px;
+}
+.best-label {
+  color: var(--text-mid);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+}
+.best-num {
+  color: var(--text-hi);
+  font-size: 17px;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+
+.logo {
+  position: absolute;
+  top: 15%;
+  left: 0;
+  right: 0;
+  text-align: center;
+  animation: mcFloat 4s ease-in-out infinite;
+}
+.logo-mint {
+  color: var(--text-hi);
+  font-weight: 800;
+  font-size: 52px;
+  line-height: 0.92;
+  letter-spacing: -0.02em;
+  text-shadow: 0 0 32px rgba(7, 230, 150, 0.35);
+}
+.logo-crossing {
+  font-weight: 800;
+  font-size: 52px;
+  line-height: 0.92;
+  letter-spacing: -0.02em;
+  background: linear-gradient(100deg, #1ce8a5, #07b4ff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 0 24px rgba(7, 230, 150, 0.45));
+}
+.logo-sub {
+  margin-top: 12px;
+  color: var(--text-mid);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+}
+
+.start-bottom {
+  position: absolute;
+  bottom: 5%;
+  left: 24px;
+  right: 24px;
+}
+.how-to {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 16px;
+  color: var(--text-lo);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* ── 공통 버튼 ── */
+.btn-primary {
+  width: 100%;
+  height: 72px;
+  border-radius: 18px;
+  background: linear-gradient(180deg, #1ce8a5, #06c281);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  color: #04130c;
+  font-weight: 800;
+  font-size: 24px;
+  letter-spacing: 0.04em;
+  box-shadow: 0 14px 36px rgba(7, 230, 150, 0.34);
+  transition: transform 0.08s ease;
+}
+.btn-primary:active {
+  transform: scale(0.97);
+}
+.btn-tri {
+  font-size: 18px;
+}
+.btn-pulse {
+  animation: mcPulse 2.4s ease-in-out infinite;
+}
+
+.btn-ghost {
+  flex: 1;
+  height: 54px;
+  border-radius: 14px;
+  border: 1px solid var(--border-2);
+  background: rgba(22, 35, 60, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: var(--text-hi);
+  font-weight: 700;
+  font-size: 15px;
+  transition: transform 0.08s ease;
+}
+.btn-ghost:active {
+  transform: scale(0.97);
+}
+.btn-cyan {
+  color: var(--cyan);
+}
+
+/* ── 인게임 HUD ── */
+.hud {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.hud-top {
+  position: absolute;
+  top: 16px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+}
+.coin-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 14px;
+  border: 1px solid rgba(255, 197, 61, 0.3);
+  background: rgba(255, 197, 61, 0.1);
+  border-radius: 999px;
+}
+.coin-ico {
+  color: var(--amber);
+  font-size: 13px;
+}
+.coin-num {
+  color: var(--amber);
+  font-size: 14px;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+
+.score-wrap {
+  position: absolute;
+  top: 52px;
+  left: 0;
+  right: 0;
+  text-align: center;
+}
+.score-num {
+  color: var(--text-hi);
+  font-weight: 800;
+  font-size: 64px;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  text-shadow: 0 4px 24px rgba(0, 0, 0, 0.7);
+  font-variant-numeric: tabular-nums;
+}
+.score-label {
+  color: var(--text-mid);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  margin-top: 2px;
+}
+
+.controls {
+  position: absolute;
+  bottom: 22px;
+  left: 20px;
+}
+.dpad {
+  display: grid;
+  grid-template-columns: repeat(3, 46px);
+  grid-template-rows: repeat(2, 46px);
+  gap: 7px;
+}
+.dpad-btn {
+  pointer-events: auto;
+  border-radius: 12px;
+  border: 1px solid var(--border-2);
+  background: rgba(14, 30, 53, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-mid);
+  font-size: 18px;
+  backdrop-filter: blur(3px);
+  transition: transform 0.06s ease, background 0.1s ease;
+}
+.dpad-btn:active {
+  transform: scale(0.92);
+  background: rgba(7, 230, 150, 0.16);
+}
+.dpad-up {
+  color: var(--mint-2);
+  background: rgba(14, 30, 53, 0.75);
+}
+.control-hint {
+  color: var(--text-lo);
+  font-size: 11px;
+  font-weight: 600;
+  margin-top: 8px;
+  letter-spacing: 0.04em;
+}
+
+/* ── 게임오버 화면 ── */
+.over-screen {
+  background: radial-gradient(560px 360px at 50% 0%, rgba(13, 103, 247, 0.18), transparent 60%),
+    linear-gradient(180deg, rgba(5, 11, 22, 0.62), rgba(5, 11, 22, 0.94));
+}
+.over-title {
+  position: absolute;
+  top: 7%;
+  left: 0;
+  right: 0;
+  text-align: center;
+  color: var(--pink);
+  font-weight: 800;
+  font-size: 14px;
+  letter-spacing: 0.24em;
+}
+.over-cause {
+  position: absolute;
+  top: calc(7% + 26px);
+  left: 0;
+  right: 0;
+  text-align: center;
+  color: var(--text-mid);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.score-card {
+  position: absolute;
+  top: 32%;
+  left: 24px;
+  right: 24px;
+  background: linear-gradient(180deg, #16233c, #0e1e35);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 22px;
+  text-align: center;
+}
+.score-card-label {
+  color: var(--text-mid);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+}
+.score-card-num {
+  font-weight: 800;
+  font-size: 56px;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  background: linear-gradient(100deg, #1ce8a5, #07b4ff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-variant-numeric: tabular-nums;
+}
+.stat-row {
+  display: flex;
+  gap: 12px;
+  margin-top: 14px;
+}
+.stat-box {
+  flex: 1;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 12px;
+}
+.stat-label {
+  color: var(--text-lo);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+}
+.stat-val {
+  color: var(--text-hi);
+  font-size: 22px;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  margin-top: 3px;
+}
+.stat-amber {
+  color: var(--amber);
+}
+.record-pill {
+  margin-top: 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 13px;
+  border: 1px solid rgba(7, 230, 150, 0.3);
+  background: rgba(7, 230, 150, 0.06);
+  border-radius: 999px;
+  color: var(--mint);
+  font-size: 12px;
+  font-weight: 700;
+}
+.record-pill.is-record {
+  border-color: rgba(255, 197, 61, 0.4);
+  background: rgba(255, 197, 61, 0.1);
+  color: var(--amber);
+}
+
+.over-bottom {
+  position: absolute;
+  bottom: 5%;
+  left: 24px;
+  right: 24px;
+}
+.over-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 12px;
+}

@@ -1,0 +1,27 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+
+# Editor
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# TS build cache
+node_modules/.tmp
+
+# 디자인 레퍼런스 원본 번들(22MB 자체포함 HTML) — 저장소 비대화 방지로 제외.
+# 의미 있는 레퍼런스(dc.html·스크린샷)는 커밋한다.
+design-reference/Mint Crossing - standalone.html
