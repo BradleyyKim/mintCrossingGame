@@ -1,14 +1,10 @@
-import type { Direction } from '../game/types'
-import { DPad } from './DPad'
-
 interface HUDProps {
   score: number
   coins: number
-  onMove: (dir: Direction) => void
 }
 
-/** 인게임 오버레이: 상단 코인 칩 + 대형 점수 + 방향 패드/힌트. */
-export function HUD({ score, coins, onMove }: HUDProps) {
+/** 인게임 오버레이: 상단 코인 칩 + 대형 점수. 조작은 화면 전체 제스처(탭/스와이프). */
+export function HUD({ score, coins }: HUDProps) {
   return (
     <div className="hud">
       <div className="hud-top">
@@ -21,11 +17,6 @@ export function HUD({ score, coins, onMove }: HUDProps) {
       <div className="score-wrap">
         <div className="score-num">{score}</div>
         <div className="score-label">SCORE</div>
-      </div>
-
-      <div className="controls">
-        <DPad onMove={onMove} />
-        <div className="control-hint">스와이프 · 탭으로 점프</div>
       </div>
     </div>
   )
