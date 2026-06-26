@@ -105,6 +105,7 @@ export class GameEngine {
   private camFollowZ = 0
   private clock = new THREE.Clock()
   private raf = 0
+  private ro: ResizeObserver | null = null
   private readonly camOffsetDir = new THREE.Vector3(...CAMERA_OFFSET).normalize()
 
   constructor(container: HTMLElement, callbacks: EngineCallbacks = {}) {
@@ -133,7 +134,12 @@ export class GameEngine {
     this.resize()
     this.home() // 시작 화면 뒤로 보일 idle 씬을 미리 구성
 
-    window.addEventListener('resize', this.resize)
+    // 컨테이너 크기를 항상 추적해 캔버스 버퍼=표시 크기를 일치시킨다.
+    // (PWA standalone 실행 직후처럼 window resize 이벤트가 안 오는 경우 대비 → 세로 늘어남 방지)
+    this.ro = new ResizeObserver(() => this.resize())
+    this.ro.observe(this.container)
+    window.addEventListener('resize', this.resize) // 폴백
+    window.addEventListener('orientationchange', this.resize)
     this.clock.start()
     this.loop()
   }
@@ -646,7 +652,9 @@ export class GameEngine {
 
   dispose() {
     cancelAnimationFrame(this.raf)
+    this.ro?.disconnect()
     window.removeEventListener('resize', this.resize)
+    window.removeEventListener('orientationchange', this.resize)
     for (const m of this.mats.values()) m.dispose()
     this.box.dispose()
     this.renderer.dispose()

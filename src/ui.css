@@ -7,8 +7,7 @@
 .app-frame {
   position: relative;
   width: min(100vw, 440px);
-  height: 100dvh;
-  max-height: 1000px;
+  height: 100dvh; /* 모바일은 풀스크린(클램프 없음). 데스크톱 액자 높이는 아래 미디어쿼리에서 */
   overflow: hidden;
   background: var(--bg);
   user-select: none;
@@ -29,9 +28,9 @@
   touch-action: none;
 }
 .game-layer canvas {
+  /* 크기는 three.js setSize 가 컨테이너에 맞춰 px 로 직접 지정한다.
+     여기서 100% 로 강제하면 그리기 버퍼와 표시 종횡비가 어긋나 늘어나 보임(특히 PWA). */
   display: block;
-  width: 100% !important;
-  height: 100% !important;
 }
 
 /* 공통 오버레이 */
@@ -67,7 +66,7 @@
 
 .best-pill {
   position: absolute;
-  top: 7%;
+  top: calc(7% + env(safe-area-inset-top));
   left: 50%;
   transform: translateX(-50%);
   display: inline-flex;
@@ -98,7 +97,7 @@
 
 .logo {
   position: absolute;
-  top: 15%;
+  top: calc(15% + env(safe-area-inset-top));
   left: 0;
   right: 0;
   text-align: center;
@@ -133,7 +132,7 @@
 
 .start-bottom {
   position: absolute;
-  bottom: 5%;
+  bottom: calc(5% + env(safe-area-inset-bottom));
   left: 24px;
   right: 24px;
 }
@@ -205,7 +204,7 @@
 
 .hud-top {
   position: absolute;
-  top: 16px;
+  top: calc(16px + env(safe-area-inset-top));
   left: 0;
   right: 0;
   display: flex;
@@ -233,7 +232,7 @@
 
 .score-wrap {
   position: absolute;
-  top: 52px;
+  top: calc(52px + env(safe-area-inset-top));
   left: 0;
   right: 0;
   text-align: center;
@@ -255,44 +254,49 @@
   margin-top: 2px;
 }
 
-.controls {
+/* ── 첫 플레이 조작 코치마크 ── */
+.coach {
   position: absolute;
-  bottom: 22px;
-  left: 20px;
-}
-.dpad {
-  display: grid;
-  grid-template-columns: repeat(3, 46px);
-  grid-template-rows: repeat(2, 46px);
-  gap: 7px;
-}
-.dpad-btn {
-  pointer-events: auto;
-  border-radius: 12px;
-  border: 1px solid var(--border-2);
-  background: rgba(14, 30, 53, 0.55);
+  inset: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--text-mid);
-  font-size: 18px;
-  backdrop-filter: blur(3px);
-  transition: transform 0.06s ease, background 0.1s ease;
+  pointer-events: none; /* 안내를 띄운 채 탭이 그대로 전진으로 전달되도록 */
+  transition: opacity 0.3s ease;
 }
-.dpad-btn:active {
-  transform: scale(0.92);
-  background: rgba(7, 230, 150, 0.16);
+.coach-out {
+  opacity: 0;
 }
-.dpad-up {
-  color: var(--mint-2);
-  background: rgba(14, 30, 53, 0.75);
+.coach-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 22px 28px;
+  border-radius: 18px;
+  border: 1px solid var(--border-2);
+  background: rgba(8, 20, 39, 0.82);
+  backdrop-filter: blur(6px);
+  box-shadow: 0 16px 44px rgba(0, 0, 0, 0.5);
+  animation: mcFadeUp 0.3s ease both;
 }
-.control-hint {
-  color: var(--text-lo);
-  font-size: 11px;
+.coach-finger {
+  font-size: 40px;
+  animation: mcFloat 1.6s ease-in-out infinite;
+}
+.coach-line {
+  font-size: 15px;
   font-weight: 600;
-  margin-top: 8px;
-  letter-spacing: 0.04em;
+  color: var(--text-mid);
+}
+.coach-line b {
+  color: var(--mint-2);
+  font-weight: 800;
+}
+.coach-arrows {
+  color: var(--cyan);
+  font-weight: 800;
+  letter-spacing: 2px;
 }
 
 /* ── 게임오버 화면 ── */
@@ -302,7 +306,7 @@
 }
 .over-title {
   position: absolute;
-  top: 7%;
+  top: calc(7% + env(safe-area-inset-top));
   left: 0;
   right: 0;
   text-align: center;
@@ -313,7 +317,7 @@
 }
 .over-cause {
   position: absolute;
-  top: calc(7% + 26px);
+  top: calc(7% + 26px + env(safe-area-inset-top));
   left: 0;
   right: 0;
   text-align: center;
@@ -398,7 +402,7 @@
 
 .over-bottom {
   position: absolute;
-  bottom: 5%;
+  bottom: calc(5% + env(safe-area-inset-bottom));
   left: 24px;
   right: 24px;
 }
